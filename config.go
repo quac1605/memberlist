@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/hashicorp/go-metrics/compat"
+	metrics "github.com/hashicorp/go-metrics/compat"
 	"github.com/hashicorp/go-multierror"
 )
 
@@ -314,8 +314,8 @@ func DefaultLANConfig() *Config {
 		SuspicionMult:           4,                      // Suspect a node for 4 * log(N+1) * Interval
 		SuspicionMaxTimeoutMult: 6,                      // For 10k nodes this will give a max timeout of 120 seconds
 		PushPullInterval:        30 * time.Second,       // Low frequency
-		ProbeTimeout:            500 * time.Millisecond, // Reasonable RTT time for LAN
-		ProbeInterval:           1 * time.Second,        // Failure check every second
+		ProbeTimeout:            200 * time.Millisecond, // Reduced from 500ms - critical for RTT accuracy
+		ProbeInterval:           500 * time.Millisecond, // Reduced from 1s - more frequent probing
 		DisableTcpPings:         false,                  // TCP pings are safe, even with mixed versions
 		AwarenessMaxMultiplier:  8,                      // Probe interval backs off to 8 seconds
 
